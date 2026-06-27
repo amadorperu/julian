@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julian Diaz-Avendaño · Docente e Investigador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#06122A;
+    --ink-2:#0A1E40;
+    --navy:#0C2E63;
+    --azure:#2F7BF6;
+    --azure-deep:#1857C4;
+    --sky:#76B6FF;
+    --gold:#F5B83D;
+    --paper:#EAF1FF;
+    --slate:#9FB6DD;
+    --slate-dim:#6B83AD;
+    --line:rgba(118,182,255,.16);
+    --card:rgba(13,38,82,.42);
+    --r:clamp(14px,2vw,22px);
+    --maxw:1180px;
+    --display:"Fraunces",Georgia,serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"Space Mono",ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    background:var(--ink);
+    color:var(--paper);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--azure);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+
+  /* ---------- Ambient background ---------- */
+  .ambient{position:fixed;inset:0;z-index:-2;overflow:hidden}
+  .ambient::before,.ambient::after{
+    content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;
+    animation:drift 22s ease-in-out infinite;
+  }
+  .ambient::before{width:55vw;height:55vw;left:-12vw;top:-10vw;
+    background:radial-gradient(circle at 30% 30%,var(--azure),transparent 65%);}
+  .ambient::after{width:50vw;height:50vw;right:-10vw;bottom:-12vw;
+    background:radial-gradient(circle at 60% 60%,var(--navy),transparent 60%);
+    animation-delay:-11s;}
+  .grid-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;mask-image:radial-gradient(circle at 50% 30%,#000,transparent 80%);
+    opacity:.5;}
+  @keyframes drift{50%{transform:translate(6vw,4vh) scale(1.12)}}
+
+  /* ---------- Nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px clamp(20px,5vw,48px);
+    transition:background .35s,backdrop-filter .35s,padding .35s;}
+  nav.scrolled{background:rgba(6,18,42,.72);backdrop-filter:blur(14px);
+    padding:12px clamp(20px,5vw,48px);border-bottom:1px solid var(--line);}
+  .brand{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:.3px}
+  .brand b{color:var(--sky)}
+  .nav-links{display:flex;gap:28px;font-size:.82rem;letter-spacing:.04em}
+  .nav-links a{color:var(--slate);position:relative;padding:4px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:0;
+    background:var(--azure);transition:width .3s}
+  .nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}
+  .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--paper);
+    border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:.75rem;cursor:pointer}
+
+  /* ---------- Layout ---------- */
+  section{position:relative;padding:clamp(80px,11vw,150px) clamp(20px,5vw,48px)}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--azure);display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--azure);opacity:.7}
+  h2.title{font-family:var(--display);font-weight:400;line-height:1.05;
+    font-size:clamp(2rem,5vw,3.4rem);margin-bottom:10px;letter-spacing:-.01em}
+  h2.title em{font-style:italic;color:var(--sky)}
+
+  /* ---------- Hero ---------- */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding-top:120px;position:relative}
+  #constellation{position:absolute;inset:0;z-index:0}
+  .hero .wrap{position:relative;z-index:2}
+  .hero-loc{font-family:var(--mono);font-size:.78rem;color:var(--slate);letter-spacing:.18em;
+    display:flex;align-items:center;gap:10px;margin-bottom:26px}
+  .hero-loc .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 0 rgba(245,184,61,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,184,61,.55)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  .hero h1{font-family:var(--display);font-weight:300;line-height:.96;
+    font-size:clamp(3rem,10vw,7.4rem);letter-spacing:-.025em;margin-bottom:24px}
+  .hero h1 .l1{display:block;overflow:hidden}
+  .hero h1 .l2{display:block;overflow:hidden;color:var(--sky)}
+  .hero h1 span span{display:inline-block;transform:translateY(110%);
+    animation:rise .9s cubic-bezier(.16,1,.3,1) forwards}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero-role{max-width:640px;font-size:clamp(1.05rem,2.2vw,1.4rem);color:var(--slate);
+    font-weight:300;margin-bottom:40px;opacity:0;animation:fade 1s 1s forwards}
+  .hero-role b{color:var(--paper);font-weight:500}
+  @keyframes fade{to{opacity:1}}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fade 1s 1.25s forwards}
+  .btn{font-family:var(--mono);font-size:.82rem;letter-spacing:.05em;padding:14px 26px;
+    border-radius:100px;border:1px solid var(--line);transition:.3s;display:inline-flex;align-items:center;gap:9px}
+  .btn-pri{background:linear-gradient(120deg,var(--azure),var(--azure-deep));border-color:transparent;
+    color:#fff;box-shadow:0 10px 30px -10px var(--azure)}
+  .btn-pri:hover{transform:translateY(-3px);box-shadow:0 18px 40px -12px var(--azure)}
+  .btn-gho:hover{border-color:var(--sky);background:rgba(118,182,255,.08);transform:translateY(-3px)}
+  .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;color:var(--slate-dim);
+    display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2;opacity:0;animation:fade 1s 1.6s forwards}
+  .scroll-hint .bar{width:1px;height:42px;background:linear-gradient(var(--azure),transparent);
+    animation:slide 2s infinite}
+  @keyframes slide{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ---------- Stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:48px 0}
+  .stat .num{font-family:var(--display);font-size:clamp(2.4rem,6vw,4rem);font-weight:400;
+    line-height:1;background:linear-gradient(120deg,#fff,var(--sky));-webkit-background-clip:text;
+    background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--slate);
+    text-transform:uppercase;margin-top:12px}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(36px,6vw,80px);align-items:start}
+  .lead{font-family:var(--display);font-weight:300;font-size:clamp(1.35rem,3vw,2rem);
+    line-height:1.4;letter-spacing:-.01em}
+  .lead b{color:var(--sky);font-weight:500;font-style:italic}
+  .about-body p{color:var(--slate);margin-top:20px;font-weight:300}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .chip{font-family:var(--mono);font-size:.74rem;padding:8px 15px;border-radius:100px;
+    border:1px solid var(--line);background:var(--card);color:var(--paper)}
+  .focus-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px;
+    backdrop-filter:blur(8px)}
+  .focus-card h3{font-family:var(--display);font-weight:500;font-size:1.3rem;margin-bottom:18px}
+  .focus-list{list-style:none}
+  .focus-list li{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);
+    font-size:.94rem;color:var(--slate)}
+  .focus-list li:first-child{border-top:none}
+  .focus-list .k{font-family:var(--mono);color:var(--azure);font-size:.78rem;min-width:60px}
+
+  /* ---------- Research ---------- */
+  .pub-grid{display:grid;gap:18px}
+  .pub{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+    padding:26px clamp(20px,3vw,34px);border:1px solid var(--line);border-radius:var(--r);
+    background:var(--card);position:relative;overflow:hidden;transition:.4s}
+  .pub::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:linear-gradient(var(--azure),var(--sky));transform:scaleY(0);transform-origin:top;transition:.4s}
+  .pub:hover{transform:translateX(8px);border-color:rgba(118,182,255,.4);background:rgba(18,46,98,.55)}
+  .pub:hover::before{transform:scaleY(1)}
+  .pub .idx{font-family:var(--mono);font-size:.8rem;color:var(--azure)}
+  .pub h4{font-family:var(--display);font-weight:400;font-size:clamp(1.05rem,2vw,1.32rem);
+    line-height:1.3;letter-spacing:-.01em}
+  .pub .arr{font-size:1.2rem;color:var(--slate-dim);transition:.3s}
+  .pub:hover .arr{color:var(--sky);transform:translate(4px,-4px)}
+  .pub .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--slate-dim);
+    text-transform:uppercase;margin-top:6px;display:block}
+
+  /* ---------- Timeline ---------- */
+  .tl{position:relative;margin-top:20px}
+  .tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:1px;
+    background:linear-gradient(var(--azure),transparent)}
+  .tl-item{position:relative;padding:0 0 44px 44px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:2px;top:6px;width:13px;height:13px;border-radius:50%;
+    background:var(--ink);border:2px solid var(--azure);transition:.3s}
+  .tl-item:hover::before{background:var(--azure);box-shadow:0 0 0 6px rgba(47,123,246,.18)}
+  .tl-date{font-family:var(--mono);font-size:.74rem;color:var(--azure);letter-spacing:.06em}
+  .tl-role{font-family:var(--display);font-weight:500;font-size:1.22rem;margin-top:4px}
+  .tl-org{color:var(--sky);font-size:.92rem;font-weight:500}
+  .tl-place{font-family:var(--mono);font-size:.7rem;color:var(--slate-dim);letter-spacing:.08em}
+  .tl-desc{color:var(--slate);font-size:.92rem;font-weight:300;margin-top:10px;max-width:680px}
+
+  /* ---------- Education / Awards ---------- */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,72px)}
+  .edu-item{padding:20px 0;border-top:1px solid var(--line);display:grid;
+    grid-template-columns:auto 1fr;gap:20px;align-items:baseline}
+  .edu-item:first-of-type{border-top:none}
+  .edu-yr{font-family:var(--mono);font-size:.78rem;color:var(--azure)}
+  .edu-deg{font-family:var(--display);font-size:1.08rem;font-weight:500}
+  .edu-school{color:var(--slate);font-size:.86rem;font-weight:300}
+  .award{display:flex;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
+  .award:first-of-type{border-top:none}
+  .award .star{color:var(--gold);font-size:1.1rem}
+  .award p{font-weight:400}.award span{font-family:var(--mono);font-size:.72rem;color:var(--slate-dim)}
+
+  /* ---------- Contact ---------- */
+  .contact{text-align:center}
+  .contact h2{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,7vw,5rem);
+    line-height:1.02;letter-spacing:-.02em;margin:18px 0 36px}
+  .contact h2 em{font-style:italic;color:var(--sky)}
+  .contact .btn{font-size:.9rem;padding:16px 30px}
+  footer{padding:40px clamp(20px,5vw,48px);border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    font-family:var(--mono);font-size:.74rem;color:var(--slate-dim)}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:860px){
+    .nav-links{display:none}.nav-toggle{display:block}
+    .stats{grid-template-columns:1fr 1fr;gap:36px 20px}
+    .about-grid,.two{grid-template-columns:1fr}
+    .pub{grid-template-columns:auto 1fr;gap:16px}.pub .arr{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .hero h1 span span{transform:none}.hero-role,.hero-cta,.scroll-hint{opacity:1}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="grid-overlay"></div>
+
+<nav id="nav">
+  <div class="brand">Julian <b>Diaz-Avendaño</b></div>
+  <div class="nav-links">
+    <a href="#perfil">Perfil</a>
+    <a href="#investigacion">Investigación</a>
+    <a href="#trayectoria">Trayectoria</a>
+    <a href="#formacion">Formación</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <button class="nav-toggle" id="toggle">Menú</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="inicio">
+  <canvas id="constellation"></canvas>
+  <div class="wrap">
+    <div class="hero-loc"><span class="dot"></span>LIMA · PERÚ — DISPONIBLE PARA COLABORACIÓN ACADÉMICA</div>
+    <h1>
+      <span class="l1"><span style="animation-delay:.05s">Julian</span></span>
+      <span class="l2"><span style="animation-delay:.18s">Diaz-Avendaño</span></span>
+    </h1>
+    <p class="hero-role"><b>Ph.D. in Management</b> con énfasis en Comportamiento Organizacional y HRM, MBA e Ingeniero Industrial. Docente e investigador dedicado a la identidad y los estados de identificación organizacional.</p>
+    <div class="hero-cta">
+      <a href="#investigacion" class="btn btn-pri">Ver investigación →</a>
+      <a href="#contacto" class="btn btn-gho">Contactar</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="bar"></span>DESPLAZAR</div>
+</header>
+
+<!-- STATS -->
+<section style="padding-top:0;padding-bottom:clamp(60px,8vw,100px)">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="num" data-count="20" data-suffix="+">0</div><div class="lab">Años de trayectoria</div></div>
+      <div class="stat"><div class="num" data-count="5">0</div><div class="lab">Publicaciones</div></div>
+      <div class="stat"><div class="num" data-count="4">0</div><div class="lab">Países · 3 continentes</div></div>
+      <div class="stat"><div class="num" data-count="4">0</div><div class="lab">Títulos de posgrado</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFIL -->
+<section id="perfil">
+  <div class="wrap">
+    <div class="eyebrow reveal">Perfil</div>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p class="lead">Combino el rigor de la <b>investigación organizacional</b> con dos décadas dirigiendo operaciones, compras y estrategia en empresas de cuatro países.</p>
+        <p>Propongo una formación experiencial y didáctica a través de juegos, casos, juego de roles y Aprendizaje Basado en Proyectos. Mi docencia, en pregrado y posgrado, gira en torno al comportamiento organizacional, la ética organizacional y la gestión del talento humano.</p>
+        <p>Mi investigación se dirige hacia la identidad y los estados de identificación organizacional y las prácticas de Recursos Humanos en mercados emergentes. Fuera de la academia cuento con amplia experiencia en gestión de operaciones y consultoría estratégica para startups y PYMES.</p>
+        <div class="chips">
+          <span class="chip">Comportamiento Organizacional</span>
+          <span class="chip">Ética Organizacional</span>
+          <span class="chip">Gestión del Talento Humano</span>
+          <span class="chip">Pensamiento Crítico</span>
+          <span class="chip">Macroeconomía</span>
+          <span class="chip">Estadística</span>
+        </div>
+      </div>
+      <aside class="focus-card reveal">
+        <h3>De un vistazo</h3>
+        <ul class="focus-list">
+          <li><span class="k">Rol</span><span>Professor Researcher · CENTRUM PUCP</span></li>
+          <li><span class="k">Foco</span><span>Identidad e identificación organizacional, HRM</span></li>
+          <li><span class="k">Método</span><span>Aprendizaje experiencial y basado en proyectos</span></li>
+          <li><span class="k">Idiomas</span><span>Español (nativo) · Inglés (profesional)</span></li>
+          <li><span class="k">Base</span><span>Lima, Perú</span></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTIGACIÓN -->
+<section id="investigacion">
+  <div class="wrap">
+    <div class="eyebrow reveal">Investigación · Publicaciones</div>
+    <h2 class="title reveal">Identidad, identificación y <em>bienestar</em> en el trabajo</h2>
+    <div class="pub-grid" style="margin-top:46px">
+      <article class="pub reveal">
+        <span class="idx">01</span>
+        <div><h4>Ambivalent Identification: The Role of Job Performance in Strengthening Organizational Identification in Healthcare Settings</h4><span class="tag">Identificación organizacional · Salud</span></div>
+        <span class="arr">↗</span>
+      </article>
+      <article class="pub reveal">
+        <span class="idx">02</span>
+        <div><h4>Between pride and frustration: why committed public healthcare workers consider exiting</h4><span class="tag">Compromiso · Rotación</span></div>
+        <span class="arr">↗</span>
+      </article>
+      <article class="pub reveal">
+        <span class="idx">03</span>
+        <div><h4>A Stakeholder Approach to Strategic Human Resource Management in Latin America</h4><span class="tag">HRM estratégico · Stakeholders</span></div>
+        <span class="arr">↗</span>
+      </article>
+      <article class="pub reveal">
+        <span class="idx">04</span>
+        <div><h4>Reconnecting to perform: the mediating role of well-being in disidentification</h4><span class="tag">Bienestar · Desidentificación</span></div>
+        <span class="arr">↗</span>
+      </article>
+      <article class="pub reveal">
+        <span class="idx">05</span>
+        <div><h4>Tourism metamorphosis: Reshaping destination attractiveness in a post-pandemic world</h4><span class="tag">Turismo · Post-pandemia</span></div>
+        <span class="arr">↗</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TRAYECTORIA -->
+<section id="trayectoria">
+  <div class="wrap">
+    <div class="eyebrow reveal">Trayectoria</div>
+    <h2 class="title reveal">Academia, consultoría y <em>operaciones</em></h2>
+    <div class="tl" style="margin-top:50px">
+      <div class="tl-item reveal">
+        <div class="tl-date">ABR 2023 — PRESENTE</div>
+        <div class="tl-role">Professor Researcher</div>
+        <div class="tl-org">CENTRUM PUCP · <span class="tl-place">LIMA, PERÚ</span></div>
+        <p class="tl-desc">Profesor tiempo completo en MBA y Maestrías Especializadas: comportamiento organizacional, ética organizacional, pensamiento crítico y temas afines. Investigación en HRM y su relación con distintos contextos de mercados emergentes.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">MAY 2022 — MAR 2023</div>
+        <div class="tl-role">Senior Consultant Recruiter (Freelance)</div>
+        <div class="tl-org">BRESSO Consultoría & Management · <span class="tl-place">BUENOS AIRES</span></div>
+        <p class="tl-desc">Consultoría senior y reclutamiento especializado para clientes de la región.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">AGO 2019 — JUL 2022</div>
+        <div class="tl-role">Profesor adjunto</div>
+        <div class="tl-org">Universidad Austral · <span class="tl-place">GRAN BUENOS AIRES, ARGENTINA</span></div>
+        <p class="tl-desc">Project Leader del programa de Aprendizaje Basado en Proyectos del área de RR.HH. Cátedra de Dirección de Personas y el programa "La Consultora", desarrollando proyectos reales con empresas como Swiss Medical Group y Cervecería y Maltería Quilmes.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">AGO 2016 — ABR 2019</div>
+        <div class="tl-role">Profesor Asistente</div>
+        <div class="tl-org">Universidad Antonio Nariño · <span class="tl-place">VILLAVICENCIO, COLOMBIA</span></div>
+        <p class="tl-desc">Autoconocimiento y Liderazgo, Gestión del Talento Humano, Emprendimiento e Innovación. Asesor ante la Gobernación del Meta en el desarrollo del clúster agroindustrial del departamento.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">OCT 2015 — DIC 2016</div>
+        <div class="tl-role">Director de Estrategia y Operaciones</div>
+        <div class="tl-org">G&C Grupo Consultor · <span class="tl-place">BOGOTÁ</span></div>
+        <p class="tl-desc">Planeación y estructuración de la estrategia de crecimiento, desarrollo de negocios, nuevos productos y alianzas estratégicas.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2011 — 2015</div>
+        <div class="tl-role">Compras · Finanzas · Supervisión (Internacional)</div>
+        <div class="tl-org">Maxiflores · Industria Aeronáutica Colombiana · Crystal Clean (Londres)</div>
+        <p class="tl-desc">Gestión de compras y planeación de demanda; asesoría financiera para el avión de entrenamiento "Calima T-90" de la FAC; y supervisión in-house en retail en el Reino Unido.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2003 — 2010</div>
+        <div class="tl-role">Jefe de Operación · Supervisor · Coordinador</div>
+        <div class="tl-org">Brink's · <span class="tl-place">BOGOTÁ</span></div>
+        <p class="tl-desc">7 años liderando operación, logística, producción y KPI. Reducción de hasta 40% en recursos consumidos y mejoras de 30% en procesos clave de peajes y recaudos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMACIÓN + RECONOCIMIENTOS -->
+<section id="formacion">
+  <div class="wrap">
+    <div class="two">
+      <div class="reveal">
+        <div class="eyebrow">Formación</div>
+        <div class="edu-item"><span class="edu-yr">2019–2023</span><div><div class="edu-deg">Ph.D. in Management — Organizational Behavior</div><div class="edu-school">IAE Business School</div></div></div>
+        <div class="edu-item"><span class="edu-yr">2021–2022</span><div><div class="edu-deg">Conscious Business Coaching Plus</div><div class="edu-school">Conscious Business Center · Coaching y liderazgo</div></div></div>
+        <div class="edu-item"><span class="edu-yr">2013</span><div><div class="edu-deg">MBA — International</div><div class="edu-school">IAE Business School</div></div></div>
+        <div class="edu-item"><span class="edu-yr">2007–2008</span><div><div class="edu-deg">Especialista en Gerencia — Logística y Comercio Internacional</div><div class="edu-school">Universidad Externado de Colombia</div></div></div>
+        <div class="edu-item"><span class="edu-yr">2011–2012</span><div><div class="edu-deg">English Studies</div><div class="edu-school">London School of Business & Finance</div></div></div>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Reconocimientos</div>
+        <div class="award"><span class="star">★</span><div><p>Minciencias Scholarship</p><span>BECA DOCTORAL</span></div></div>
+        <div class="award"><span class="star">★</span><div><p>AIB Research Funding Grants Program 2024</p><span>FINANCIACIÓN DE INVESTIGACIÓN</span></div></div>
+        <div class="award"><span class="star">★</span><div><p>Desempeño como Profesor-Investigador 2024</p><span>RECONOCIMIENTO ACADÉMICO</span></div></div>
+        <div class="focus-card" style="margin-top:30px">
+          <h3 style="font-size:1.1rem">Ingeniería de base</h3>
+          <p style="color:var(--slate);font-weight:300;font-size:.92rem">Ingeniero Industrial de formación — el cimiento analítico detrás de su lectura de procesos, datos y organizaciones.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center">Contacto</div>
+    <h2 class="reveal">Conversemos sobre <em>investigación</em>,<br>docencia o consultoría.</h2>
+    <div class="hero-cta reveal" style="justify-content:center">
+      <a href="mailto:juliandariodiaz@gmail.com" class="btn btn-pri">✉ juliandariodiaz@gmail.com</a>
+      <a href="https://www.linkedin.com/in/julianddiaz" target="_blank" rel="noopener" class="btn btn-gho">in / julianddiaz ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Julian Diaz-Avendaño</span>
+  <span>PH.D · MBA · DOCENTE E INVESTIGADOR</span>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+  // Mobile toggle -> smooth scroll to sections list
+  document.getElementById('toggle').addEventListener('click',()=>{
+    document.getElementById('contacto').scrollIntoView({behavior:'smooth'});
+  });
+
+  // Reveal on scroll
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Animated counters
+  const cIo=new IntersectionObserver((es)=>es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'';
+    let t0=null;const dur=1400;
+    const step=(t)=>{if(!t0)t0=t;const p=Math.min((t-t0)/dur,1);
+      el.textContent=Math.floor((1-Math.pow(1-p,3))*end)+suf;
+      if(p<1)requestAnimationFrame(step);};
+    requestAnimationFrame(step);cIo.unobserve(el);
+  }),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cIo.observe(el));
+
+  // Constellation canvas (network = organizational identification motif)
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    const cv=document.getElementById('constellation'),cx=cv.getContext('2d');
+    let w,h,pts,mouse={x:-999,y:-999};
+    const DPR=Math.min(devicePixelRatio||1,2);
+    function size(){w=cv.width=innerWidth*DPR;h=cv.height=cv.parentElement.offsetHeight*DPR;
+      cv.style.width=innerWidth+'px';cv.style.height=cv.parentElement.offsetHeight+'px';
+      const n=Math.min(70,Math.floor(innerWidth/22));
+      pts=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,
+        vx:(Math.random()-.5)*.25*DPR,vy:(Math.random()-.5)*.25*DPR,r:(Math.random()*1.6+.6)*DPR}));}
+    addEventListener('mousemove',e=>{mouse.x=e.clientX*DPR;mouse.y=e.clientY*DPR;});
+    addEventListener('resize',size);size();
+    (function loop(){
+      cx.clearRect(0,0,w,h);
+      for(const p of pts){
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+        cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle='rgba(118,182,255,.7)';cx.fill();
+      }
+      const D=130*DPR;
+      for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+        const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<D){cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);
+          cx.strokeStyle='rgba(47,123,246,'+(1-d/D)*.32+')';cx.lineWidth=DPR*.7;cx.stroke();}
+      }
+      for(const p of pts){const dx=p.x-mouse.x,dy=p.y-mouse.y,d=Math.hypot(dx,dy);
+        if(d<160*DPR){cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(mouse.x,mouse.y);
+          cx.strokeStyle='rgba(245,184,61,'+(1-d/(160*DPR))*.4+')';cx.lineWidth=DPR*.8;cx.stroke();}}
+      requestAnimationFrame(loop);
+    })();
+  }
+</script>
+</body>
+</html>
